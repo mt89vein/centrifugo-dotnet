@@ -1,0 +1,48 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+    <script src="//cdn.rawgit.com/centrifugal/centrifuge-js/2.6.0/dist/centrifuge.min.js"></script>
+
+<div class="text-center">
+    <h1 class="display-4">Welcome</h1>
+    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    
+    <div>
+        <h1 class="display-4">ReplyMessages</h1>
+        <div id="messages-box">
+
+        </div>
+        <textarea id="text-box"></textarea>
+        <button id="button">send</button>
+    </div>
+</div>
+
+<script>
+
+    const messagesBox = document.getElementById('messages-box');
+    const centrifuge = new Centrifuge('@ViewData["Url"]');
+
+    centrifuge.setToken('@ViewData["Token"]');
+    centrifuge.subscribe("test-channel", function(message) {
+        console.log(message);
+        const p = document.createElement('p');
+        p.innerText = JSON.stringify(message);
+        messagesBox.append(p);
+    });
+
+    document.getElementById('button').addEventListener('click', function (e) {
+
+        const text = document.getElementById('text-box').value;
+
+        centrifuge.publish("test-channel", { "msg": text}).then(function(res) {
+            console.log('successfully published');
+        }, function(err) {
+            console.log('publish error', err);
+        });
+    });
+    
+
+    centrifuge.connect();
+
+</script>

@@ -1,0 +1,29 @@
+{
+    "token_hmac_secret_key": "very-long-secret-key",
+    "api_key": "secret-api-key",
+    "anonymous": true,
+    "publish": true,
+    "presence": true,
+    "join_leave": true,
+    "history_size": 10,
+    "history_lifetime": 30,
+    "admin": "true",
+    "admin_password": "guest",
+    "admin_secret": "guest",
+    "engine": "redis",
+    "namespaces": [
+        {
+            "name": "public",
+            "publish": true,
+            "anonymous": true,
+            "history_size": 10,
+            "history_lifetime": 300,
+            "history_recover": false
+        },
+        {
+            "name": "chat",
+            "presence": true,
+            "join_leave": false
+        }
+    ]
+}
