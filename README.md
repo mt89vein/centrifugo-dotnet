@@ -44,13 +44,13 @@ var token = await tokenProvider
         .GenerateTokenAsync("some_client_identifier", "Hi, my name is Jack");
 
 // set jwt-token
-client.SetToken(token);
+centrifugo.SetToken(token);
 
 // open ws connection and connection handshake to centrifugo.
-await client.ConnectAsync();
+await centrifugo.ConnectAsync();
 
 // send subscribe message with configured above subscription.
-await client.SubscribeAsync(subscription);
+await centrifugo.SubscribeAsync(subscription);
 
 // prepare message to publish
 var msg = new TestMessage
